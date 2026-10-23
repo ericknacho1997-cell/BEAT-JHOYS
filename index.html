@@ -1,672 +1,438 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#080808">
-<title>Beat Jhoys — Invitación Privada</title>
-<!-- Google Fonts: Inter & Outfit -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&family=Outfit:wght@700;800;900&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --black: #080808;
-    --dark-surface: #0e0e12;
-    --card-bg: rgba(18, 18, 24, 0.75);
-    --card-border: rgba(181, 106, 255, 0.2);
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invitación Privada — Beat Jhoys</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter & Space Grotesk -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&family=Space+Grotesk:wght@500;700;900&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
     
-    /* Neon Colors */
-    --purple: #b56aff;
-    --purple-glow: rgba(181, 106, 255, 0.4);
-    --violet: #8151c9;
-    --burgundy: #b64d70;
-    --burgundy-glow: rgba(182, 77, 112, 0.35);
-    --orange: #ff7b35;
-    --orange-neon: #ff5500;
-    --orange-glow: rgba(255, 85, 0, 0.45);
-    
-    --text-white: #f5f3f7;
-    --text-muted: #a09aa6;
-    --line: rgba(255, 255, 255, 0.1);
-  }
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            black: '#0a050e',
+                            wine: '#2e0818',
+                            purple: '#6b21a8',
+                            violet: '#a855f7',
+                            orange: '#ff6b00',
+                            neonOrange: '#ff3b00',
+                            neonMagenta: '#ec4899'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                    },
+                    animation: {
+                        'pulse-glow': 'pulseGlow 3s infinite ease-in-out',
+                        'float': 'float 6s infinite ease-in-out',
+                    },
+                    keyframes: {
+                        pulseGlow: {
+                            '0%, 100%': { filter: 'drop-shadow(0 0 15px rgba(255, 107, 0, 0.4))' },
+                            '50%': { filter: 'drop-shadow(0 0 35px rgba(168, 85, 247, 0.8))' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
+                            '50%': { transform: 'translateY(-10px) rotate(1deg)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
+    <style>
+        body {
+            background-color: #0a050e;
+            color: #f3f4f6;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
 
-  body {
-    position: relative;
-    isolation: isolate;
-    min-height: 100vh;
-    color: var(--text-white);
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
-    background-color: var(--black);
-    overflow-x: hidden;
-    padding-bottom: 60px;
-  }
+        /* Glassmorphism Card Style */
+        .glass-panel {
+            background: rgba(18, 8, 28, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(168, 85, 247, 0.25);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.6);
+        }
 
-  /* Glow Effects de fondo */
-  body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: -2;
-    background: 
-      radial-gradient(circle at 20% 15%, rgba(181, 106, 255, 0.12) 0%, transparent 40%),
-      radial-gradient(circle at 80% 60%, rgba(255, 85, 0, 0.1) 0%, transparent 45%),
-      radial-gradient(circle at 50% 90%, rgba(182, 77, 112, 0.12) 0%, transparent 50%);
-  }
+        /* Custom Glowing Borders & Text */
+        .neon-text-orange {
+            text-shadow: 0 0 10px rgba(255, 107, 0, 0.6), 0 0 20px rgba(255, 59, 0, 0.4);
+        }
+        
+        .neon-text-violet {
+            text-shadow: 0 0 12px rgba(168, 85, 247, 0.8), 0 0 24px rgba(236, 72, 153, 0.5);
+        }
 
-  /* Grid futurista sutil */
-  .bg-grid {
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    pointer-events: none;
-    opacity: 0.15;
-    background-image: 
-      linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-    background-size: 40px 40px;
-  }
+        .neon-border {
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.3), inset 0 0 15px rgba(255, 107, 0, 0.2);
+        }
 
-  .wrap {
-    width: min(100% - 32px, 760px);
-    margin: 0 auto;
-    padding-top: 30px;
-  }
+        /* Watermark Styles */
+        .bg-watermark {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: min(85vw, 650px);
+            height: min(85vw, 650px);
+            background-image: url('https://d1yei2z3i6k35z.cloudfront.net/17968210/6adbdd98de5fa0.24411897_EmblemaNe%C3%B3n%C3%81mbarFuturista.png');
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0.18;
+            mix-blend-mode: screen;
+            pointer-events: none;
+            z-index: 1;
+            filter: saturate(1.4) contrast(1.2);
+            animation: watermarkPulse 8s infinite alternate ease-in-out;
+        }
 
-  /* Header / Masthead */
-  .masthead {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 24px;
-  }
+        @keyframes watermarkPulse {
+            0% { transform: translate(-50%, -50%) scale(0.98); opacity: 0.15; }
+            100% { transform: translate(-50%, -50%) scale(1.03); opacity: 0.22; }
+        }
 
-  .brand {
-    font-size: 0.68rem;
-    text-transform: uppercase;
-    letter-spacing: 0.3em;
-    color: var(--purple);
-    font-weight: 700;
-    text-shadow: 0 0 10px var(--purple-glow);
-  }
+        /* Evasive button transition */
+        #btn-no {
+            transition: all 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+        }
 
-  .seal {
-    border: 1px solid var(--card-border);
-    background: rgba(181, 106, 255, 0.05);
-    border-radius: 99px;
-    padding: 6px 14px;
-    color: var(--text-white);
-    font-size: 0.62rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    font-weight: 600;
-    box-shadow: 0 0 15px rgba(181, 106, 255, 0.1);
-  }
-
-  /* Hero Card */
-  .hero {
-    position: relative;
-    min-height: 420px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    overflow: hidden;
-    border: 1px solid var(--card-border);
-    border-radius: 16px;
-    padding: clamp(28px, 6vw, 56px);
-    background: linear-gradient(135deg, rgba(25, 20, 32, 0.85), rgba(12, 10, 16, 0.95));
-    backdrop-filter: blur(12px);
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), inset 0 1px 1px rgba(255, 255, 255, 0.15);
-  }
-
-  .hero::before {
-    content: "";
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, var(--purple), var(--orange-neon), transparent);
-  }
-
-  .hero-bg-text {
-    position: absolute;
-    right: -10px;
-    bottom: -40px;
-    font-family: 'Outfit', sans-serif;
-    font-size: clamp(11rem, 32vw, 22rem);
-    line-height: 1;
-    font-weight: 900;
-    letter-spacing: -.08em;
-    color: rgba(181, 106, 255, 0.03);
-    user-select: none;
-    pointer-events: none;
-  }
-
-  .eyebrow {
-    display: inline-block;
-    font-size: 0.68rem;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--orange);
-    font-weight: 700;
-    margin-bottom: 8px;
-  }
-
-  h1 {
-    position: relative;
-    z-index: 1;
-    margin: 16px 0;
-    font-family: 'Outfit', sans-serif;
-    font-size: clamp(3.2rem, 11vw, 6.5rem);
-    line-height: 0.9;
-    letter-spacing: -0.04em;
-    font-weight: 900;
-  }
-
-  h1 .accent-purple {
-    color: var(--purple);
-    text-shadow: 0 0 25px var(--purple-glow);
-  }
-
-  h1 .accent-orange {
-    color: var(--orange-neon);
-    text-shadow: 0 0 25px var(--orange-glow);
-  }
-
-  .tagline {
-    position: relative;
-    z-index: 1;
-    margin-top: 16px;
-    max-width: 480px;
-    font-size: clamp(1rem, 3.2vw, 1.25rem);
-    line-height: 1.5;
-    color: #e2dce8;
-    font-weight: 400;
-  }
-
-  .tagline .tiny {
-    color: var(--orange-neon);
-    font-weight: 700;
-  }
-
-  .hero-bottom {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    gap: 18px;
-    margin-top: 48px;
-    padding-top: 24px;
-    border-top: 1px solid var(--line);
-  }
-
-  .date-label {
-    color: var(--burgundy);
-    font-size: 0.65rem;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    font-weight: 800;
-    margin-bottom: 6px;
-  }
-
-  .date-value {
-    font-size: 0.95rem;
-    color: var(--text-white);
-    font-weight: 600;
-    line-height: 1.5;
-  }
-
-  .time {
-    text-align: right;
-  }
-
-  .time strong {
-    display: block;
-    color: var(--orange-neon);
-    font-size: 1.6rem;
-    font-weight: 800;
-    letter-spacing: -0.03em;
-    text-shadow: 0 0 15px var(--orange-glow);
-  }
-
-  .time span {
-    font-size: 0.62rem;
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
-    color: var(--text-muted);
-  }
-
-  /* Section RSVP */
-  .rsvp {
-    margin-top: 20px;
-    border: 1px solid var(--card-border);
-    border-radius: 16px;
-    background: var(--card-bg);
-    backdrop-filter: blur(12px);
-    padding: clamp(24px, 5vw, 42px);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
-  }
-
-  .section-label {
-    color: var(--burgundy);
-    text-transform: uppercase;
-    letter-spacing: 0.25em;
-    font-size: 0.65rem;
-    font-weight: 800;
-    margin-bottom: 6px;
-  }
-
-  h2 {
-    font-family: 'Outfit', sans-serif;
-    font-size: clamp(1.8rem, 5vw, 2.4rem);
-    letter-spacing: -0.03em;
-    margin-bottom: 10px;
-    font-weight: 800;
-  }
-
-  .description {
-    color: var(--text-muted);
-    font-size: 0.92rem;
-    line-height: 1.6;
-    margin-bottom: 28px;
-    max-width: 540px;
-  }
-
-  /* Botones principales y Área de Interacción */
-  .choice-area {
-    position: relative;
-    min-height: 70px;
-    display: flex;
-    gap: 16px;
-    align-items: center;
-    flex-wrap: wrap;
-  }
-
-  .btn {
-    border: 1px solid transparent;
-    border-radius: 8px;
-    padding: 16px 28px;
-    font-family: inherit;
-    font-size: 0.82rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    font-weight: 800;
-    cursor: pointer;
-    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-  }
-
-  .btn-yes {
-    background: linear-gradient(135deg, var(--purple), var(--violet));
-    color: #ffffff;
-    min-width: 230px;
-    box-shadow: 0 6px 25px var(--purple-glow);
-  }
-
-  .btn-yes:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 30px rgba(181, 106, 255, 0.6);
-    background: linear-gradient(135deg, #c482ff, #915ddc);
-  }
-
-  .btn-no {
-    position: relative;
-    background: rgba(255, 255, 255, 0.04);
-    color: var(--text-muted);
-    border-color: rgba(255, 255, 255, 0.15);
-    min-width: 120px;
-    user-select: none;
-    touch-action: manipulation;
-    z-index: 10;
-  }
-
-  .btn-no:hover {
-    color: var(--burgundy);
-    border-color: var(--burgundy);
-    box-shadow: 0 0 15px var(--burgundy-glow);
-  }
-
-  /* Formulario desplegable */
-  .form-wrap {
-    margin-top: 28px;
-    padding-top: 28px;
-    border-top: 1px solid var(--line);
-    animation: fadeIn 0.4s ease-out forwards;
-  }
-
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(12px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .form-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 18px;
-  }
-
-  .field {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  .field.full { grid-column: 1 / -1; }
-
-  label {
-    color: #e0d8e8;
-    font-size: 0.8rem;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-
-  input, select, textarea {
-    width: 100%;
-    background: rgba(8, 8, 12, 0.8);
-    color: var(--text-white);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 8px;
-    padding: 14px 16px;
-    font-family: inherit;
-    font-size: 0.9rem;
-    outline: none;
-    transition: all 0.2s ease;
-  }
-
-  input:focus, select:focus, textarea:focus {
-    border-color: var(--purple);
-    box-shadow: 0 0 15px var(--purple-glow);
-    background: rgba(14, 12, 20, 0.95);
-  }
-
-  select option {
-    background: #121018;
-    color: var(--text-white);
-  }
-
-  textarea {
-    resize: vertical;
-    min-height: 95px;
-  }
-
-  .consent {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    color: var(--text-muted);
-    font-size: 0.78rem;
-    line-height: 1.5;
-    cursor: pointer;
-  }
-
-  .consent input {
-    width: auto;
-    margin-top: 3px;
-    accent-color: var(--purple);
-    cursor: pointer;
-  }
-
-  .send-btn {
-    width: 100%;
-    background: linear-gradient(135deg, var(--orange-neon), var(--orange));
-    color: #ffffff;
-    font-size: 0.88rem;
-    padding: 18px 24px;
-    border-radius: 8px;
-    box-shadow: 0 6px 25px var(--orange-glow);
-    margin-top: 8px;
-  }
-
-  .send-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 35px rgba(255, 85, 0, 0.65);
-    background: linear-gradient(135deg, #ff661a, #ff8542);
-  }
-
-  .hidden { display: none !important; }
-
-  .microcopy {
-    margin-top: 14px;
-    color: #827b8a;
-    font-size: 0.74rem;
-    line-height: 1.5;
-  }
-
-  .status {
-    margin-top: 16px;
-    padding: 14px 16px;
-    background: rgba(181, 106, 255, 0.1);
-    border-left: 3px solid var(--purple);
-    border-radius: 4px;
-    color: #e8dff5;
-    font-size: 0.85rem;
-    line-height: 1.5;
-  }
-
-  .footer {
-    text-align: center;
-    padding-top: 30px;
-    color: #686170;
-    font-size: 0.65rem;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-  }
-
-  .footer span { color: var(--purple); }
-
-  /* Responsivo para celulares */
-  @media(max-width: 580px) {
-    .wrap { width: min(100% - 24px, 760px); padding-top: 18px; }
-    .hero { padding: 28px 20px; }
-    .hero-bottom { margin-top: 36px; flex-direction: column; align-items: flex-start; gap: 16px; }
-    .time { text-align: left; }
-    .form-grid { grid-template-columns: 1fr; }
-    .field.full { grid-column: auto; }
-    .choice-area { flex-direction: column; align-items: stretch; }
-    .btn-yes { width: 100%; min-width: 0; }
-    .btn-no { width: 100%; }
-  }
-</style>
+        /* Canvas Particle Background */
+        #particleCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 0;
+        }
+    </style>
 </head>
-<body>
+<body class="min-h-screen flex flex-col justify-between items-center relative p-4 md:p-8 selection:bg-brand-orange selection:text-white">
 
-<div class="bg-grid"></div>
+    <!-- Background Particle Canvas -->
+    <canvas id="particleCanvas"></canvas>
 
-<main class="wrap">
-  <!-- Masthead -->
-  <header class="masthead">
-    <div class="brand">Una invitación privada</div>
-    <div class="seal">Solo gente querida</div>
-  </header>
+    <!-- Camouflaged Background Watermark Image -->
+    <div class="bg-watermark"></div>
 
-  <!-- Hero Section -->
-  <section class="hero" aria-labelledby="main-title">
-    <div class="hero-bg-text">BJ</div>
-    <div>
-      <span class="eyebrow">Sábado · Un plan sin plan</span>
-      <h1 id="main-title">Beat <span class="accent-purple">Jhoys</span></h1>
-      <p class="tagline">Un Almuerzo tranca como siempre,<br>Nada estuvo planeado <span class="tiny">:v</span></p>
+    <!-- Header / Top Banner with Tagline -->
+    <header class="w-full max-w-4xl z-10 flex flex-col sm:flex-row justify-between items-center gap-4 mb-6 pt-2">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-brand-orange via-brand-purple to-brand-violet p-0.5 shadow-lg shadow-brand-purple/40">
+                <div class="w-full h-full bg-brand-black rounded-full flex items-center justify-center">
+                    <i data-lucide="disc-3" class="w-5 h-5 text-brand-orange animate-spin" style="animation-duration: 8s;"></i>
+                </div>
+            </div>
+            <span class="font-display font-bold text-xl tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-white via-purple-200 to-brand-violet">
+                BEAT JHOYS
+            </span>
+        </div>
+
+        <!-- Upper Tagline Badge -->
+        <div class="glass-panel px-4 py-2 rounded-2xl border border-brand-violet/30 max-w-md text-right sm:text-right text-center shadow-lg">
+            <p class="text-xs md:text-sm font-medium text-orange-200/90 leading-tight">
+                ✨ <span class="italic">"Solo se pide mucho aprecio entre todos + respect, por que posiblemente seamos un entramado de mrd xd"</span>
+            </p>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="w-full max-w-2xl z-10 my-auto py-6">
+        <div class="glass-panel rounded-3xl p-6 md:p-10 text-center relative overflow-hidden border-2 border-brand-violet/30 animate-float">
+            
+            <!-- Neon Ambient Glow Decorative Elements -->
+            <div class="absolute -top-24 -left-24 w-48 h-48 bg-brand-purple/40 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -bottom-24 -right-24 w-48 h-48 bg-brand-orange/30 rounded-full blur-3xl pointer-events-none"></div>
+
+            <!-- VIP Badge -->
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-brand-purple/40 to-brand-wine/60 border border-brand-orange/40 text-brand-orange text-xs font-bold uppercase tracking-widest mb-6 shadow-md">
+                <i data-lucide="sparkles" class="w-3.5 h-3.5 text-brand-orange"></i>
+                Pase Privado VIP
+            </div>
+
+            <!-- Main Title -->
+            <h1 class="font-display text-4xl sm:text-5xl md:text-6xl font-black tracking-tight mb-4 text-white leading-tight">
+                INVITACIÓN EXCLUSIVA <br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange via-orange-400 to-brand-violet neon-text-orange">
+                    BEAT JHOYS SESSION
+                </span>
+            </h1>
+
+            <p class="text-gray-300 text-sm md:text-base max-w-lg mx-auto mb-8 font-light leading-relaxed">
+                Estás convocado a una reunión fuera de serie. Buena música, excelente ambiente y puras buenas vibras. ¡Confirma tu lugar antes de que colapse la lista!
+            </p>
+
+            <!-- Interactive Action Area -->
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 min-h-[120px] relative" id="button-zone">
+                
+                <!-- RSVP Button -->
+                <button id="btn-confirm" onclick="openModal()" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-brand-orange via-red-600 to-brand-purple text-white font-display font-bold text-lg shadow-xl shadow-brand-orange/25 hover:shadow-brand-orange/50 hover:scale-105 active:scale-95 transition-all duration-300 flex items-center justify-center gap-3 border border-orange-400/30 group cursor-pointer z-20">
+                    <i data-lucide="check-circle-2" class="w-5 h-5 text-white group-hover:rotate-12 transition-transform"></i>
+                    Confirmar Asistencia
+                </button>
+
+                <!-- Evasive "No" Button -->
+                <button id="btn-no" class="w-full sm:w-auto px-6 py-4 rounded-2xl bg-white/5 hover:bg-white/10 text-gray-400 border border-white/10 font-display font-medium text-base transition-all cursor-pointer z-20">
+                    No asistiré
+                </button>
+            </div>
+
+            <p id="evasive-msg" class="text-xs text-brand-orange font-mono h-4 mt-3 opacity-0 transition-opacity duration-200">
+                ¡Oso travieso! No puedes decir que no.
+            </p>
+        </div>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="w-full max-w-4xl z-10 text-center py-4 text-xs text-gray-500 font-mono">
+        <p>© 2026 Beat Jhoys • Exclusivo para allegados de confianza</p>
+    </footer>
+
+    <!-- RSVP Form Modal -->
+    <div id="rsvp-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="glass-panel w-full max-w-lg rounded-3xl p-6 sm:p-8 border-2 border-brand-orange/40 shadow-2xl relative transform scale-95 transition-transform duration-300" id="modal-card">
+            
+            <!-- Close Modal Button -->
+            <button onclick="closeModal()" class="absolute top-5 right-5 text-gray-400 hover:text-white p-2 rounded-full hover:bg-white/10 transition-colors">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+
+            <!-- Modal Header -->
+            <div class="flex items-center gap-3 mb-6">
+                <div class="p-3 bg-brand-orange/20 rounded-2xl border border-brand-orange/40 text-brand-orange">
+                    <i data-lucide="party-popper" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <h2 class="font-display text-2xl font-bold text-white">Registro de Asistencia</h2>
+                    <p class="text-xs text-gray-400">Completa tus datos para enviarlos por WhatsApp</p>
+                </div>
+            </div>
+
+            <!-- Form -->
+            <form id="rsvp-form" onsubmit="sendWhatsApp(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-1">Nombre o Apodo *</label>
+                    <input type="text" id="field-name" required placeholder="Ej: DJ Carlos / Fer" 
+                        class="w-full px-4 py-3 rounded-xl bg-black/50 border border-brand-purple/40 text-white placeholder-gray-500 focus:outline-none focus:border-brand-orange focus:ring-1 focus:ring-brand-orange transition-all text-sm">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-1">Estado de Asistencia *</label>
+                    <select id="field-status" required class="w-full px-4 py-3 rounded-xl bg-black/50 border border-brand-purple/40 text-white focus:outline-none focus:border-brand-orange focus:ring-1 focus:ring-brand-orange transition-all text-sm">
+                        <option value="¡Totalmente confirmado! Ahímismo voy 🔥" class="bg-brand-black text-white">¡Totalmente confirmado! 🔥</option>
+                        <option value="Llego un poco más tarde pero voy 🚀" class="bg-brand-black text-white">Llego un poco tarde pero llego 🚀</option>
+                        <option value="Voy con un acompaño vip 👥" class="bg-brand-black text-white">Voy con compañía VIP 👥</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-1">¿Qué te gustaría llevar o recomendar?</label>
+                    <input type="text" id="field-brings" placeholder="Ej: Hielo, Snacks, Buena playlist, Ron, etc." 
+                        class="w-full px-4 py-3 rounded-xl bg-black/50 border border-brand-purple/40 text-white placeholder-gray-500 focus:outline-none focus:border-brand-orange focus:ring-1 focus:ring-brand-orange transition-all text-sm">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-1">Buenos deseos / Mensaje para el grupo</label>
+                    <textarea id="field-wishes" rows="2" placeholder="Dejen su buena vibras aquí..." 
+                        class="w-full px-4 py-3 rounded-xl bg-black/50 border border-brand-purple/40 text-white placeholder-gray-500 focus:outline-none focus:border-brand-orange focus:ring-1 focus:ring-brand-orange transition-all text-sm resize-none"></textarea>
+                </div>
+
+                <!-- Terms Checkbox -->
+                <div class="flex items-start gap-3 pt-2">
+                    <input type="checkbox" id="field-agree" required class="mt-1 w-4 h-4 rounded bg-black/50 border-brand-purple/40 text-brand-orange focus:ring-brand-orange focus:ring-offset-0 cursor-pointer">
+                    <label for="field-agree" class="text-xs text-gray-300 cursor-pointer leading-tight">
+                        Prometo aportar mucho aprecio, respetar el ambiente y dar lo mejor para que la noche sea memorable. ✨
+                    </label>
+                </div>
+
+                <!-- Action Button -->
+                <button type="submit" class="w-full py-4 mt-2 rounded-2xl bg-gradient-to-r from-emerald-500 via-green-600 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white font-display font-bold text-base shadow-lg shadow-emerald-600/30 transition-all flex items-center justify-center gap-2 cursor-pointer">
+                    <i data-lucide="send" class="w-5 h-5"></i>
+                    Enviar por WhatsApp
+                </button>
+            </form>
+        </div>
     </div>
-    <div class="hero-bottom">
-      <div>
-        <div class="date-label">Aparta la fecha</div>
-        <div class="date-value">Sábado, 24 de octubre de 2026<br>Azotea · Ubicación por WhatsApp</div>
-      </div>
-      <div class="time">
-        <strong>10:00 AM</strong>
-        <span>Sin apuro</span>
-      </div>
-    </div>
-  </section>
 
-  <!-- Sección RSVP -->
-  <section class="rsvp" id="rsvp">
-    <div class="section-label">Confirmación</div>
-    <h2>Confirma tu lugar</h2>
-    <p class="description">Ya sabes cómo es: algo a la parrilla, buena compañía y ningún plan demasiado serio.</p>
-    
-    <div class="choice-area" id="choice-area">
-      <button type="button" class="btn btn-yes" id="yes">Confirmar asistencia ↗</button>
-      <button type="button" class="btn btn-no" id="no" aria-label="No asistiré">No</button>
-    </div>
+    <!-- JavaScript Logic -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
 
-    <!-- Formulario desplegable -->
-    <form id="guest-form" class="form-wrap hidden">
-      <div class="form-grid">
-        <div class="field full">
-          <label for="guest-name">Tu nombre o apodo *</label>
-          <input id="guest-name" name="guest-name" autocomplete="name" maxlength="80" placeholder="¿Quién se apunta?" required>
-        </div>
+        // -------------------------------------------------------------
+        // Particle Background Logic
+        // -------------------------------------------------------------
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
 
-        <div class="field">
-          <label for="attendance">Confirmación *</label>
-          <select id="attendance" name="attendance">
-            <option value="Confirmo, ahí estaré">Confirmo, ahí estaré</option>
-            <option value="Haré lo posible por llegar">Haré lo posible por llegar</option>
-          </select>
-        </div>
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
 
-        <div class="field">
-          <label for="bring">¿Qué te gustaría llevar o recomendar?</label>
-          <input id="bring" name="bring" maxlength="180" placeholder="Ej: Bebidas, postre, snacks..." />
-        </div>
+        class Particle {
+            constructor() {
+                this.reset();
+            }
 
-        <div class="field full">
-          <label for="wishes">Buenos deseos / Mensaje especial</label>
-          <textarea id="wishes" name="wishes" placeholder="Déjanos unas palabras, buenas vibras o algún deseo para el grupo..."></textarea>
-        </div>
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.speedX = (Math.random() - 0.5) * 0.5;
+                this.speedY = (Math.random() - 0.5) * 0.5;
+                this.alpha = Math.random() * 0.5 + 0.2;
+                this.color = Math.random() > 0.5 ? '#a855f7' : '#ff6b00';
+            }
 
-        <div class="field full">
-          <label class="consent">
-            <input type="checkbox" id="private-confirm" required>
-            <span>Entiendo que la ubicación exacta de la azotea se compartirá por WhatsApp tras confirmar.</span>
-          </label>
-        </div>
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
 
-        <div class="field full">
-          <button class="btn send-btn" type="submit">Enviar confirmación por WhatsApp ↗</button>
-        </div>
-      </div>
-      <p class="microcopy">🔒 La dirección exacta no se publica abiertamente. Jhoys te la enviará de forma personal.</p>
-    </form>
+                if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
+                    this.reset();
+                }
+            }
 
-    <div id="status" class="status hidden" role="status" aria-live="polite"></div>
-    <p class="microcopy" style="margin-top: 18px; text-align: center;">Si el botón «No» se deja atrapar... es porque en el fondo sí quieres venir. 😌</p>
-  </section>
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.alpha;
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+        }
 
-  <!-- Footer -->
-  <footer class="footer">
-    Beat Jhoys <span>✦</span> 31.10.2026
-  </footer>
-</main>
+        for (let i = 0; i < 60; i++) {
+            particles.push(new Particle());
+        }
 
-<script>
-(() => {
-  const WHATSAPP = "59175533953";
-  const $ = (id) => document.getElementById(id);
-  const noButton = $("no");
-  const area = $("choice-area");
-  const form = $("guest-form");
-  const status = $("status");
-  let dodgeCount = 0;
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
 
-  // Lógica del botón escapista "No"
-  function dodgeNo(e) {
-    if (e && e.type === "touchstart") {
-      e.preventDefault();
-    }
-    dodgeCount++;
-    
-    const areaRect = area.getBoundingClientRect();
-    const btnRect = noButton.getBoundingClientRect();
-    
-    // Calculamos límites dentro del contenedor
-    const maxX = Math.max(0, areaRect.width - btnRect.width);
-    const maxY = 60;
-    
-    const x = Math.random() * maxX;
-    const y = (Math.random() * maxY) - (maxY / 2);
-    
-    noButton.style.position = "relative";
-    noButton.style.left = "0";
-    noButton.style.transform = `translate(${x - Math.min(x, 20)}px, ${y}px)`;
-    
-    const playful = [
-      "No 😏",
-      "¿Seguro? 👀",
-      "Ese botón no acepta excusas",
-      "Intenta otra vez :v",
-      "El asado te está llamando 🔥",
-      "Imposible faltar 😎"
-    ];
-    noButton.textContent = playful[Math.min(dodgeCount, playful.length - 1)];
-  }
+        // -------------------------------------------------------------
+        // Evasive "No" Button Behavior
+        // -------------------------------------------------------------
+        const btnNo = document.getElementById('btn-no');
+        const evasiveMsg = document.getElementById('evasive-msg');
+        const phrases = [
+            "¡Esa opción no existe acá! 😉",
+            "¿Seguro? No te conviene... 🎉",
+            "¡Oso! Intenta apretar Confirmar.",
+            "Ni lo intentes, vas a venir sí o sí 🔥",
+            "Error 404: Rechazo no encontrado 🚫",
+            "¡Anda ya, dale a Confirmar! 😂"
+        ];
 
-  // Eventos para atrapar el botón
-  noButton.addEventListener("mouseenter", dodgeNo);
-  noButton.addEventListener("touchstart", dodgeNo, { passive: false });
-  noButton.addEventListener("click", (e) => {
-    e.preventDefault();
-    dodgeNo(e);
-  });
-  noButton.addEventListener("focus", dodgeNo);
+        let dodgeCount = 0;
 
-  // Mostrar formulario al confirmar
-  $("yes").addEventListener("click", () => {
-    form.classList.remove("hidden");
-    $("yes").classList.add("hidden");
-    noButton.classList.add("hidden");
-    $("guest-name").focus();
-    form.scrollIntoView({ behavior: "smooth", block: "nearest" });
-  });
+        function moveButton(e) {
+            const btnRect = btnNo.getBoundingClientRect();
+            const mouseX = e.clientX || (e.touches && e.touches[0].clientX) || 0;
+            const mouseY = e.clientY || (e.touches && e.touches[0].clientY) || 0;
 
-  // Envío de formulario hacia WhatsApp
-  form.addEventListener("submit", (event) => {
-    event.preventDefault();
-    if (!form.reportValidity()) return;
+            const maxOffset = 140;
+            const randomX = (Math.random() - 0.5) * maxOffset * 2;
+            const randomY = (Math.random() - 0.5) * maxOffset * 2;
 
-    const name = $("guest-name").value.trim();
-    const attendance = $("attendance").value;
-    const bring = $("bring").value.trim() || "Sorpresa / Por definir";
-    const wishes = $("wishes").value.trim();
+            btnNo.style.transform = `translate(${randomX}px, ${randomY}px)`;
+            
+            // Display evasive phrase
+            dodgeCount = (dodgeCount + 1) % phrases.length;
+            evasiveMsg.innerText = phrases[dodgeCount];
+            evasiveMsg.style.opacity = '1';
+        }
 
-    // Mensaje formateado para WhatsApp
-    const messageLines = [
-      "¡Hola Jhoys! Confirmación para el almuerzo Beat Jhoys 🥩🔥",
-      "",
-      "👤 *Nombre:* " + name,
-      "📌 *Asistencia:* " + attendance,
-      "🥤 *Llevará/Recomienda:* " + bring,
-      wishes ? "💬 *Buenos deseos:* " + wishes : "",
-      "",
-      "📅 Sábado 24 de octubre de 2026 · 10:00 AM",
-      "¿Me compartes la ubicación exacta de la azotea? 🙌"
-    ].filter(Boolean);
+        btnNo.addEventListener('mouseenter', moveButton);
+        btnNo.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            moveButton(e);
+        });
 
-    const message = messageLines.join("\n");
-    
-    status.textContent = "¡Excelente! Se abrirá WhatsApp con los datos recopilados para que envíes la confirmación directa a Jhoys.";
-    status.classList.remove("hidden");
+        // -------------------------------------------------------------
+        // Modal Controls
+        // -------------------------------------------------------------
+        const modal = document.getElementById('rsvp-modal');
+        const modalCard = document.getElementById('modal-card');
 
-    const url = "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(message);
-    
-    // Redirección directa a WhatsApp
-    setTimeout(() => {
-      window.open(url, "_blank", "noopener,noreferrer");
-    }, 400);
-  });
-})();
-</script>
+        function openModal() {
+            modal.classList.remove('pointer-events-none');
+            modal.classList.remove('opacity-0');
+            modal.classList.add('opacity-100');
+            modalCard.classList.remove('scale-95');
+            modalCard.classList.add('scale-100');
+        }
+
+        function closeModal() {
+            modal.classList.add('opacity-0');
+            modal.classList.add('pointer-events-none');
+            modalCard.classList.remove('scale-100');
+            modalCard.classList.add('scale-95');
+        }
+
+        // Close when clicking outside of modal card
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+
+        // -------------------------------------------------------------
+        // WhatsApp Action Handler
+        // -------------------------------------------------------------
+        function sendWhatsApp(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('field-name').value.trim();
+            const status = document.getElementById('field-status').value;
+            const brings = document.getElementById('field-brings').value.trim() || 'Mucho entusiasmo y buena vibra';
+            const wishes = document.getElementById('field-wishes').value.trim() || '¡Listos para la mejor noche!';
+
+            const phone = "59175533953";
+
+            const message = 
+`🎉 *CONFIRMACIÓN DE ASISTENCIA — BEAT JHOYS* 🎉
+
+👤 *Nombre:* ${name}
+✅ *Estado:* ${status}
+🍾 *Lleva / Recomienda:* ${brings}
+💬 *Mensaje / Buenos deseos:* ${wishes}
+
+✨ _"Solo se pide mucho aprecio entre todos + respect, por que posiblemente seamos un entramado de mrd xd"_`;
+
+            const encodedMsg = encodeURIComponent(message);
+            const waUrl = `https://wa.me/${phone}?text=${encodedMsg}`;
+
+            window.open(waUrl, '_blank');
+            closeModal();
+        }
+    </script>
 </body>
 </html>
