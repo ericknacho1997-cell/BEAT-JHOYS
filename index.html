@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080808">
+<title>Beat Jhoys — Invitación Privada</title>
+<!-- Google Fonts: Inter & Outfit -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&family=Outfit:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #080808;
+    --dark-surface: #0e0e12;
+    --card-bg: rgba(18, 18, 24, 0.75);
+    --card-border: rgba(181, 106, 255, 0.2);
+    
+    /* Neon Colors */
+    --purple: #b56aff;
+    --purple-glow: rgba(181, 106, 255, 0.4);
+    --violet: #8151c9;
+    --burgundy: #b64d70;
+    --burgundy-glow: rgba(182, 77, 112, 0.35);
+    --orange: #ff7b35;
+    --orange-neon: #ff5500;
+    --orange-glow: rgba(255, 85, 0, 0.45);
+    
+    --text-white: #f5f3f7;
+    --text-muted: #a09aa6;
+    --line: rgba(255, 255, 255, 0.1);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    position: relative;
+    isolation: isolate;
+    min-height: 100vh;
+    color: var(--text-white);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: var(--black);
+    overflow-x: hidden;
+    padding-bottom: 60px;
+  }
+
+  /* Glow Effects de fondo */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -2;
+    background: 
+      radial-gradient(circle at 20% 15%, rgba(181, 106, 255, 0.12) 0%, transparent 40%),
+      radial-gradient(circle at 80% 60%, rgba(255, 85, 0, 0.1) 0%, transparent 45%),
+      radial-gradient(circle at 50% 90%, rgba(182, 77, 112, 0.12) 0%, transparent 50%);
+  }
+
+  /* Grid futurista sutil */
+  .bg-grid {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.15;
+    background-image: 
+      linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  .wrap {
+    width: min(100% - 32px, 760px);
+    margin: 0 auto;
+    padding-top: 30px;
+  }
+
+  /* Header / Masthead */
+  .masthead {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .brand {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    color: var(--purple);
+    font-weight: 700;
+    text-shadow: 0 0 10px var(--purple-glow);
+  }
+
+  .seal {
+    border: 1px solid var(--card-border);
+    background: rgba(181, 106, 255, 0.05);
+    border-radius: 99px;
+    padding: 6px 14px;
+    color: var(--text-white);
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 600;
+    box-shadow: 0 0 15px rgba(181, 106, 255, 0.1);
+  }
+
+  /* Hero Card */
+  .hero {
+    position: relative;
+    min-height: 420px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    padding: clamp(28px, 6vw, 56px);
+    background: linear-gradient(135deg, rgba(25, 20, 32, 0.85), rgba(12, 10, 16, 0.95));
+    backdrop-filter: blur(12px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), inset 0 1px 1px rgba(255, 255, 255, 0.15);
+  }
+
+  .hero::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--purple), var(--orange-neon), transparent);
+  }
+
+  .hero-bg-text {
+    position: absolute;
+    right: -10px;
+    bottom: -40px;
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(11rem, 32vw, 22rem);
+    line-height: 1;
+    font-weight: 900;
+    letter-spacing: -.08em;
+    color: rgba(181, 106, 255, 0.03);
+    user-select: none;
+    pointer-events: none;
+  }
+
+  .eyebrow {
+    display: inline-block;
+    font-size: 0.68rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--orange);
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  h1 {
+    position: relative;
+    z-index: 1;
+    margin: 16px 0;
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(3.2rem, 11vw, 6.5rem);
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+    font-weight: 900;
+  }
+
+  h1 .accent-purple {
+    color: var(--purple);
+    text-shadow: 0 0 25px var(--purple-glow);
+  }
+
+  h1 .accent-orange {
+    color: var(--orange-neon);
+    text-shadow: 0 0 25px var(--orange-glow);
+  }
+
+  .tagline {
+    position: relative;
+    z-index: 1;
+    margin-top: 16px;
+    max-width: 480px;
+    font-size: clamp(1rem, 3.2vw, 1.25rem);
+    line-height: 1.5;
+    color: #e2dce8;
+    font-weight: 400;
+  }
+
+  .tagline .tiny {
+    color: var(--orange-neon);
+    font-weight: 700;
+  }
+
+  .hero-bottom {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 18px;
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+  }
+
+  .date-label {
+    color: var(--burgundy);
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    font-weight: 800;
+    margin-bottom: 6px;
+  }
+
+  .date-value {
+    font-size: 0.95rem;
+    color: var(--text-white);
+    font-weight: 600;
+    line-height: 1.5;
+  }
+
+  .time {
+    text-align: right;
+  }
+
+  .time strong {
+    display: block;
+    color: var(--orange-neon);
+    font-size: 1.6rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    text-shadow: 0 0 15px var(--orange-glow);
+  }
+
+  .time span {
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--text-muted);
+  }
+
+  /* Section RSVP */
+  .rsvp {
+    margin-top: 20px;
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    background: var(--card-bg);
+    backdrop-filter: blur(12px);
+    padding: clamp(24px, 5vw, 42px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+  }
+
+  .section-label {
+    color: var(--burgundy);
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    font-size: 0.65rem;
+    font-weight: 800;
+    margin-bottom: 6px;
+  }
+
+  h2 {
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(1.8rem, 5vw, 2.4rem);
+    letter-spacing: -0.03em;
+    margin-bottom: 10px;
+    font-weight: 800;
+  }
+
+  .description {
+    color: var(--text-muted);
+    font-size: 0.92rem;
+    line-height: 1.6;
+    margin-bottom: 28px;
+    max-width: 540px;
+  }
+
+  /* Botones principales y Área de Interacción */
+  .choice-area {
+    position: relative;
+    min-height: 70px;
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    border: 1px solid transparent;
+    border-radius: 8px;
+    padding: 16px 28px;
+    font-family: inherit;
+    font-size: 0.82rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .btn-yes {
+    background: linear-gradient(135deg, var(--purple), var(--violet));
+    color: #ffffff;
+    min-width: 230px;
+    box-shadow: 0 6px 25px var(--purple-glow);
+  }
+
+  .btn-yes:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(181, 106, 255, 0.6);
+    background: linear-gradient(135deg, #c482ff, #915ddc);
+  }
+
+  .btn-no {
+    position: relative;
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--text-muted);
+    border-color: rgba(255, 255, 255, 0.15);
+    min-width: 120px;
+    user-select: none;
+    touch-action: manipulation;
+    z-index: 10;
+  }
+
+  .btn-no:hover {
+    color: var(--burgundy);
+    border-color: var(--burgundy);
+    box-shadow: 0 0 15px var(--burgundy-glow);
+  }
+
+  /* Formulario desplegable */
+  .form-wrap {
+    margin-top: 28px;
+    padding-top: 28px;
+    border-top: 1px solid var(--line);
+    animation: fadeIn 0.4s ease-out forwards;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .field.full { grid-column: 1 / -1; }
+
+  label {
+    color: #e0d8e8;
+    font-size: 0.8rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  input, select, textarea {
+    width: 100%;
+    background: rgba(8, 8, 12, 0.8);
+    color: var(--text-white);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    padding: 14px 16px;
+    font-family: inherit;
+    font-size: 0.9rem;
+    outline: none;
+    transition: all 0.2s ease;
+  }
+
+  input:focus, select:focus, textarea:focus {
+    border-color: var(--purple);
+    box-shadow: 0 0 15px var(--purple-glow);
+    background: rgba(14, 12, 20, 0.95);
+  }
+
+  select option {
+    background: #121018;
+    color: var(--text-white);
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 95px;
+  }
+
+  .consent {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    line-height: 1.5;
+    cursor: pointer;
+  }
+
+  .consent input {
+    width: auto;
+    margin-top: 3px;
+    accent-color: var(--purple);
+    cursor: pointer;
+  }
+
+  .send-btn {
+    width: 100%;
+    background: linear-gradient(135deg, var(--orange-neon), var(--orange));
+    color: #ffffff;
+    font-size: 0.88rem;
+    padding: 18px 24px;
+    border-radius: 8px;
+    box-shadow: 0 6px 25px var(--orange-glow);
+    margin-top: 8px;
+  }
+
+  .send-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 35px rgba(255, 85, 0, 0.65);
+    background: linear-gradient(135deg, #ff661a, #ff8542);
+  }
+
+  .hidden { display: none !important; }
+
+  .microcopy {
+    margin-top: 14px;
+    color: #827b8a;
+    font-size: 0.74rem;
+    line-height: 1.5;
+  }
+
+  .status {
+    margin-top: 16px;
+    padding: 14px 16px;
+    background: rgba(181, 106, 255, 0.1);
+    border-left: 3px solid var(--purple);
+    border-radius: 4px;
+    color: #e8dff5;
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+
+  .footer {
+    text-align: center;
+    padding-top: 30px;
+    color: #686170;
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+  }
+
+  .footer span { color: var(--purple); }
+
+  /* Responsivo para celulares */
+  @media(max-width: 580px) {
+    .wrap { width: min(100% - 24px, 760px); padding-top: 18px; }
+    .hero { padding: 28px 20px; }
+    .hero-bottom { margin-top: 36px; flex-direction: column; align-items: flex-start; gap: 16px; }
+    .time { text-align: left; }
+    .form-grid { grid-template-columns: 1fr; }
+    .field.full { grid-column: auto; }
+    .choice-area { flex-direction: column; align-items: stretch; }
+    .btn-yes { width: 100%; min-width: 0; }
+    .btn-no { width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+
+<main class="wrap">
+  <!-- Masthead -->
+  <header class="masthead">
+    <div class="brand">Una invitación privada</div>
+    <div class="seal">Solo gente querida</div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero" aria-labelledby="main-title">
+    <div class="hero-bg-text">BJ</div>
+    <div>
+      <span class="eyebrow">Sábado · Un plan sin plan</span>
+      <h1 id="main-title">Beat <span class="accent-purple">Jhoys</span></h1>
+      <p class="tagline">Un Almuerzo tranca como siempre,<br>Nada estuvo planeado <span class="tiny">:v</span></p>
+    </div>
+    <div class="hero-bottom">
+      <div>
+        <div class="date-label">Aparta la fecha</div>
+        <div class="date-value">Sábado, 31 de octubre de 2026<br>Azotea · Ubicación por WhatsApp</div>
+      </div>
+      <div class="time">
+        <strong>10:00 AM</strong>
+        <span>Sin apuro</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección RSVP -->
+  <section class="rsvp" id="rsvp">
+    <div class="section-label">Confirmación</div>
+    <h2>Confirma tu lugar</h2>
+    <p class="description">Ya sabes cómo es: algo a la parrilla, buena compañía y ningún plan demasiado serio.</p>
+    
+    <div class="choice-area" id="choice-area">
+      <button type="button" class="btn btn-yes" id="yes">Confirmar asistencia ↗</button>
+      <button type="button" class="btn btn-no" id="no" aria-label="No asistiré">No</button>
+    </div>
+
+    <!-- Formulario desplegable -->
+    <form id="guest-form" class="form-wrap hidden">
+      <div class="form-grid">
+        <div class="field full">
+          <label for="guest-name">Tu nombre o apodo *</label>
+          <input id="guest-name" name="guest-name" autocomplete="name" maxlength="80" placeholder="¿Quién se apunta?" required>
+        </div>
+
+        <div class="field">
+          <label for="attendance">Confirmación *</label>
+          <select id="attendance" name="attendance">
+            <option value="Confirmo, ahí estaré">Confirmo, ahí estaré</option>
+            <option value="Haré lo posible por llegar">Haré lo posible por llegar</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="bring">¿Qué te gustaría llevar o recomendar?</label>
+          <input id="bring" name="bring" maxlength="180" placeholder="Ej: Bebidas, postre, snacks..." />
+        </div>
+
+        <div class="field full">
+          <label for="wishes">Buenos deseos / Mensaje especial</label>
+          <textarea id="wishes" name="wishes" placeholder="Déjanos unas palabras, buenas vibras o algún deseo para el grupo..."></textarea>
+        </div>
+
+        <div class="field full">
+          <label class="consent">
+            <input type="checkbox" id="private-confirm" required>
+            <span>Entiendo que la ubicación exacta de la azotea se compartirá por WhatsApp tras confirmar.</span>
+          </label>
+        </div>
+
+        <div class="field full">
+          <button class="btn send-btn" type="submit">Enviar confirmación por WhatsApp ↗</button>
+        </div>
+      </div>
+      <p class="microcopy">🔒 La dirección exacta no se publica abiertamente. Jhoys te la enviará de forma personal.</p>
+    </form>
+
+    <div id="status" class="status hidden" role="status" aria-live="polite"></div>
+    <p class="microcopy" style="margin-top: 18px; text-align: center;">Si el botón «No» se deja atrapar... es porque en el fondo sí quieres venir. 😌</p>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    Beat Jhoys <span>✦</span> 31.10.2026
+  </footer>
+</main>
+
+<script>
+(() => {
+  const WHATSAPP = "59175533953";
+  const $ = (id) => document.getElementById(id);
+  const noButton = $("no");
+  const area = $("choice-area");
+  const form = $("guest-form");
+  const status = $("status");
+  let dodgeCount = 0;
+
+  // Lógica del botón escapista "No"
+  function dodgeNo(e) {
+    if (e && e.type === "touchstart") {
+      e.preventDefault();
+    }
+    dodgeCount++;
+    
+    const areaRect = area.getBoundingClientRect();
+    const btnRect = noButton.getBoundingClientRect();
+    
+    // Calculamos límites dentro del contenedor
+    const maxX = Math.max(0, areaRect.width - btnRect.width);
+    const maxY = 60;
+    
+    const x = Math.random() * maxX;
+    const y = (Math.random() * maxY) - (maxY / 2);
+    
+    noButton.style.position = "relative";
+    noButton.style.left = "0";
+    noButton.style.transform = `translate(${x - Math.min(x, 20)}px, ${y}px)`;
+    
+    const playful = [
+      "No 😏",
+      "¿Seguro? 👀",
+      "Ese botón no acepta excusas",
+      "Intenta otra vez :v",
+      "El asado te está llamando 🔥",
+      "Imposible faltar 😎"
+    ];
+    noButton.textContent = playful[Math.min(dodgeCount, playful.length - 1)];
+  }
+
+  // Eventos para atrapar el botón
+  noButton.addEventListener("mouseenter", dodgeNo);
+  noButton.addEventListener("touchstart", dodgeNo, { passive: false });
+  noButton.addEventListener("click", (e) => {
+    e.preventDefault();
+    dodgeNo(e);
+  });
+  noButton.addEventListener("focus", dodgeNo);
+
+  // Mostrar formulario al confirmar
+  $("yes").addEventListener("click", () => {
+    form.classList.remove("hidden");
+    $("yes").classList.add("hidden");
+    noButton.classList.add("hidden");
+    $("guest-name").focus();
+    form.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  });
+
+  // Envío de formulario hacia WhatsApp
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    if (!form.reportValidity()) return;
+
+    const name = $("guest-name").value.trim();
+    const attendance = $("attendance").value;
+    const bring = $("bring").value.trim() || "Sorpresa / Por definir";
+    const wishes = $("wishes").value.trim();
+
+    // Mensaje formateado para WhatsApp
+    const messageLines = [
+      "¡Hola Jhoys! Confirmación para el almuerzo Beat Jhoys 🥩🔥",
+      "",
+      "👤 *Nombre:* " + name,
+      "📌 *Asistencia:* " + attendance,
+      "🥤 *Llevará/Recomienda:* " + bring,
+      wishes ? "💬 *Buenos deseos:* " + wishes : "",
+      "",
+      "📅 Sábado 31 de octubre de 2026 · 10:00 AM",
+      "¿Me compartes la ubicación exacta de la azotea? 🙌"
+    ].filter(Boolean);
+
+    const message = messageLines.join("\n");
+    
+    status.textContent = "¡Excelente! Se abrirá WhatsApp con los datos recopilados para que envíes la confirmación directa a Jhoys.";
+    status.classList.remove("hidden");
+
+    const url = "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(message);
+    
+    // Redirección directa a WhatsApp
+    setTimeout(() => {
+      window.open(url, "_blank", "noopener,noreferrer");
+    }, 400);
+  });
+})();
+</script>
+</body>
+</html>
